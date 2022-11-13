@@ -1,5 +1,8 @@
 import nodemailer from 'nodemailer';
 import generateToken from './generateToken.js';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 export default async function sendEmail({ id, nome, email }) {
   const token = generateToken(id);
