@@ -1,3 +1,4 @@
+import sendEmail from '../functions/sendEmail.js';
 import Usuario from '../models/Usuario.js';
 
 class UsuarioController {
@@ -14,20 +15,32 @@ class UsuarioController {
         .json({ msg: 'Os campos email, senha e nome devem ser preenchidos' });
     }
 
-    Usuario.create({
-      email,
-      senha,
-      nome,
-    })
-      .then(() => {
-        res.status(201).send();
+    const emailJaExiste = await Usuario.findOne({
+      where: { email },
+    });
+
+    if (emailJaExiste) {
+      return res.status(400).json({ msg: 'E-mail já cadastrado!' });
+    } else {
+      Usuario.create({
+        email,
+        senha,
+        nome,
+        confirmado: 0,
       })
-      .catch((err) => {
-        // Código de erro padrão do Sequelize para inserção duplicada de dado único
-        if (err.parent.errno === 1062) {
-          res.status(400).json({ msg: 'E-mail já cadastrado!' });
-        } else res.status(400).send();
-      });
+        .then((usuario) => {
+          sendEmail({
+            id: usuario.id,
+            nome: usuario.nome,
+            email: usuario.email,
+          });
+        })
+        .catch(() => {
+          return res.status(400).send();
+        });
+    }
+
+    return res.status(201).send();
   }
 }
 

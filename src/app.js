@@ -1,12 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import routes from './routes.js';
+import * as dotenv from 'dotenv';
 
 class App {
   constructor() {
     this.server = express();
     this.middlewares();
     this.routes();
+    dotenv.config();
   }
 
   middlewares() {

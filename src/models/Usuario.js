@@ -18,6 +18,10 @@ const Usuario = connection.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    confirmado: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+    },
   },
   {
     hooks: {

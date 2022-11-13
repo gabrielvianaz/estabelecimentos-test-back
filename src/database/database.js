@@ -1,8 +1,16 @@
 import Sequelize from 'sequelize';
+import * as dotenv from 'dotenv';
 
-const connection = new Sequelize('estabeledb', 'gabriel', '45095010a', {
-  host: 'db4free.net',
-  dialect: 'mysql',
-});
+dotenv.config();
+
+const connection = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: 'mysql',
+  }
+);
 
 export default connection;
