@@ -19,7 +19,7 @@ export default async function sendEmail({ id, nome, email }) {
     from: process.env.EMAIL_USER,
     to: `${email}`,
     subject: 'Ativação de Conta - Sistema Estabelecimentos',
-    text: `Olá, ${nome}! Para ativar sua conta, acesse o link: http://localhost:3000/ativar/${token}`,
-    html: `<b>Olá, ${nome}! Para ativar sua conta, <a href="http://localhost:3000/ativar/${token}">clique aqui</a></b>`,
+    text: `Olá, ${nome}! Para ativar sua conta, acesse o link: https://estabelecimentos-front.netlify.app/ativar/${token}`,
+    html: `<b>Olá, ${nome}! Para ativar sua conta, <a href="https://estabelecimentos-front.netlify.app/ativar/${token}">clique aqui</a></b>`,
   });
 }
